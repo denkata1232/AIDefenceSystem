@@ -19,5 +19,8 @@ namespace SystemMonitor.Core.Data
 
         public int ProcessCount { get; set; }
         public int OpenPorts { get; set; }
+
+        public int ThreatScore { get; set; }
+        public string ThreatStatus { get; set; }
     }
 }

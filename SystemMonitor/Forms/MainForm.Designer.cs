@@ -6,16 +6,17 @@
         ///  Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Timer refreshTimer;
 
-        private Button btnScan;
-        private Button btnSettings;
         private System.Windows.Forms.Label lblCpu;
         private System.Windows.Forms.Label lblRam;
         private System.Windows.Forms.Label lblNetUp;
+        private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.TextBox txtLogs;
         private System.Windows.Forms.Label lblNetDown;
+        private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.ListView processList;
+        private System.Windows.Forms.Label lblThreatScore;
         /// <summary>
         ///  Clean up any resources being used.
         /// </summary>
@@ -47,6 +48,7 @@
             txtLogs = new TextBox();
             btnScan = new Button();
             btnSettings = new Button();
+            lblThreatScore = new Label();
             SuspendLayout();
             // 
             // refreshTimer
@@ -92,9 +94,9 @@
             // 
             // processList
             // 
-            processList.Location = new Point(10, 120);
+            processList.Location = new Point(10, 138);
             processList.Name = "processList";
-            processList.Size = new Size(500, 400);
+            processList.Size = new Size(500, 382);
             processList.TabIndex = 4;
             processList.UseCompatibleStateImageBehavior = false;
             processList.View = View.Details;
@@ -127,9 +129,17 @@
             btnSettings.Text = "Settings";
             btnSettings.Click += btnSettings_Click;
             // 
+            // lblThreatScore
+            // 
+            lblThreatScore.Location = new Point(10, 112);
+            lblThreatScore.Name = "lblThreatScore";
+            lblThreatScore.Size = new Size(242, 23);
+            lblThreatScore.TabIndex = 7;
+            // 
             // MainForm
             // 
             ClientSize = new Size(940, 570);
+            Controls.Add(lblThreatScore);
             Controls.Add(btnSettings);
             Controls.Add(lblCpu);
             Controls.Add(lblRam);

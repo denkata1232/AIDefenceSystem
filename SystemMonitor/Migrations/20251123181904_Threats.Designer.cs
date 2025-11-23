@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SystemMonitor.Core.Data;
 
@@ -10,9 +11,11 @@ using SystemMonitor.Core.Data;
 namespace SystemMonitor.Migrations
 {
     [DbContext(typeof(TelemetryContext))]
-    partial class TelemetryContextModelSnapshot : ModelSnapshot
+    [Migration("20251123181904_Threats")]
+    partial class Threats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.11");

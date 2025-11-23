@@ -16,6 +16,8 @@ namespace SystemMonitor
         private NetworkInterface activeNetwork;
         private AlertManager alertManager = new AlertManager();
 
+        
+
         public MainForm()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace SystemMonitor
         {
             telemetry = new TelemetryService();
             telemetry.Start();
-
+            telemetry.OnThreatScoreUpdated += UpdateThreatScoreUI;
             refreshTimer.Start();
         }
 
@@ -47,6 +49,16 @@ namespace SystemMonitor
             UpdateNetwork();
             UpdateProcessList();
             RefreshLogs();
+        }
+
+        private void UpdateThreatScoreUI(int score, string status)
+        {
+            lblThreatScore.Text = $"Security Score: {score} ({status})";
+
+            if (score < 20) lblThreatScore.BackColor = Color.Green;
+            else if (score < 50) lblThreatScore.BackColor = Color.Yellow;
+            else if (score < 75) lblThreatScore.BackColor = Color.Orange;
+            else lblThreatScore.BackColor = Color.Red;
         }
 
         private void btnScan_Click(object sender, EventArgs e)

@@ -14,6 +14,9 @@ namespace SystemMonitor.Core.Data
         private System.Timers.Timer timer;
         private long prevBytesSent = 0;
         private long prevBytesReceived = 0;
+        public ThreatScoreCalculator scoreCalc = new ThreatScoreCalculator();
+
+        public event Action<int, string> OnThreatScoreUpdated;
 
         public TelemetryService()
         {
@@ -33,6 +36,21 @@ namespace SystemMonitor.Core.Data
             int procCount = Process.GetProcesses().Length;
             int portCount = GetOpenPortsCount();
 
+            int unknownProc = GetUnknownProcessCount();
+
+            int threatScore = scoreCalc.Calculate(
+                (int)cpu,
+                (int)ram,
+                up,
+                down,
+                unknownProc
+            );
+
+            string status = scoreCalc.GetStatus(threatScore);
+
+            OnThreatScoreUpdated?.Invoke(threatScore, status);
+
+            // Save telemetry
             var entry = new TelemetryEntry
             {
                 Timestamp = DateTime.Now,
@@ -41,12 +59,19 @@ namespace SystemMonitor.Core.Data
                 Upload = up,
                 Download = down,
                 ProcessCount = procCount,
-                OpenPorts = portCount
+                OpenPorts = portCount,
+                ThreatScore = threatScore,
+                ThreatStatus = status
             };
 
             using var db = new TelemetryContext();
             db.Telemetry.Add(entry);
             await db.SaveChangesAsync();
+        }
+
+        private int GetUnknownProcessCount()
+        {
+            return 0; // Day 2 adds real logic
         }
 
         private double GetCpuUsage()
