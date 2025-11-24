@@ -199,8 +199,9 @@ namespace SystemMonitor
 
         private void btnCPUTest_Click(object sender, EventArgs e)
         {
-            CPUTester CPUTest= new CPUTester();
-            CPUTest.StartTest();
+            /*CPUTester CPUTest= new CPUTester();
+            CPUTest.StartTest();*/
+            MessageBox.Show("Съществува тестът, но забива цялостно и не може да изведе резултатът от него.");
         }
     }
 }
