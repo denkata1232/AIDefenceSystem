@@ -48,34 +48,34 @@
             chkMonitoring.AutoSize = true;
             chkMonitoring.Location = new Point(20, 20);
             chkMonitoring.Name = "chkMonitoring";
-            chkMonitoring.Size = new Size(154, 24);
+            chkMonitoring.Size = new Size(191, 19);
             chkMonitoring.TabIndex = 0;
-            chkMonitoring.Text = "Enable Monitoring";
+            chkMonitoring.Text = "Активиране на наблюдението";
             // 
             // chkScreenshots
             // 
             chkScreenshots.AutoSize = true;
             chkScreenshots.Location = new Point(20, 50);
             chkScreenshots.Name = "chkScreenshots";
-            chkScreenshots.Size = new Size(211, 24);
+            chkScreenshots.Size = new Size(296, 19);
             chkScreenshots.TabIndex = 1;
-            chkScreenshots.Text = "Enable Screenshot Logging";
+            chkScreenshots.Text = "Активиране на регистриране на екранни снимки";
             // 
             // chkNetwork
             // 
             chkNetwork.AutoSize = true;
             chkNetwork.Location = new Point(20, 80);
             chkNetwork.Name = "chkNetwork";
-            chkNetwork.Size = new Size(214, 24);
+            chkNetwork.Size = new Size(247, 19);
             chkNetwork.TabIndex = 2;
-            chkNetwork.Text = "Enable Network Monitoring";
+            chkNetwork.Text = "Активирайте наблюдението на мрежата";
             // 
             // trackVolume
             // 
             trackVolume.Location = new Point(20, 120);
             trackVolume.Maximum = 100;
             trackVolume.Name = "trackVolume";
-            trackVolume.Size = new Size(104, 56);
+            trackVolume.Size = new Size(104, 45);
             trackVolume.TabIndex = 3;
             trackVolume.TickFrequency = 10;
             // 
@@ -85,20 +85,20 @@
             cmbTheme.Items.AddRange(new object[] { "Dark", "Light" });
             cmbTheme.Location = new Point(20, 170);
             cmbTheme.Name = "cmbTheme";
-            cmbTheme.Size = new Size(121, 28);
+            cmbTheme.Size = new Size(121, 23);
             cmbTheme.TabIndex = 4;
             // 
             // btnSave
             // 
             btnSave.Location = new Point(20, 220);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(75, 30);
+            btnSave.Size = new Size(121, 30);
             btnSave.TabIndex = 5;
-            btnSave.Text = "Save Settings";
+            btnSave.Text = "Запази настройки";
             // 
             // SettingsForm
             // 
-            ClientSize = new Size(300, 280);
+            ClientSize = new Size(323, 280);
             Controls.Add(chkMonitoring);
             Controls.Add(chkScreenshots);
             Controls.Add(chkNetwork);
@@ -106,7 +106,7 @@
             Controls.Add(cmbTheme);
             Controls.Add(btnSave);
             Name = "SettingsForm";
-            Text = "Settings";
+            Text = "Настройки";
             ((System.ComponentModel.ISupportInitialize)trackVolume).EndInit();
             ResumeLayout(false);
             PerformLayout();

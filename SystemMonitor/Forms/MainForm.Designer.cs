@@ -49,6 +49,7 @@
             btnScan = new Button();
             btnSettings = new Button();
             lblThreatScore = new Label();
+            btnCPUTest = new Button();
             SuspendLayout();
             // 
             // refreshTimer
@@ -61,36 +62,36 @@
             lblCpu.AutoSize = true;
             lblCpu.Location = new Point(10, 10);
             lblCpu.Name = "lblCpu";
-            lblCpu.Size = new Size(43, 20);
+            lblCpu.Size = new Size(101, 15);
             lblCpu.TabIndex = 0;
-            lblCpu.Text = "CPU: ";
+            lblCpu.Text = "CPU (процесор): ";
             // 
             // lblRam
             // 
             lblRam.AutoSize = true;
             lblRam.Location = new Point(10, 35);
             lblRam.Name = "lblRam";
-            lblRam.Size = new Size(48, 20);
+            lblRam.Size = new Size(110, 15);
             lblRam.TabIndex = 1;
-            lblRam.Text = "RAM: ";
+            lblRam.Text = "RAM (Кеш памет): ";
             // 
             // lblNetUp
             // 
             lblNetUp.AutoSize = true;
             lblNetUp.Location = new Point(10, 60);
             lblNetUp.Name = "lblNetUp";
-            lblNetUp.Size = new Size(65, 20);
+            lblNetUp.Size = new Size(106, 15);
             lblNetUp.TabIndex = 2;
-            lblNetUp.Text = "Upload: ";
+            lblNetUp.Text = "Upload (качване): ";
             // 
             // lblNetDown
             // 
             lblNetDown.AutoSize = true;
             lblNetDown.Location = new Point(10, 85);
             lblNetDown.Name = "lblNetDown";
-            lblNetDown.Size = new Size(85, 20);
+            lblNetDown.Size = new Size(122, 15);
             lblNetDown.TabIndex = 3;
-            lblNetDown.Text = "Download: ";
+            lblNetDown.Text = "Download (сваляне): ";
             // 
             // processList
             // 
@@ -117,7 +118,7 @@
             btnScan.Name = "btnScan";
             btnScan.Size = new Size(200, 30);
             btnScan.TabIndex = 6;
-            btnScan.Text = "Run Security Scan";
+            btnScan.Text = "Скенер за защита";
             btnScan.Click += btnScan_Click;
             // 
             // btnSettings
@@ -126,7 +127,7 @@
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new Size(100, 30);
             btnSettings.TabIndex = 0;
-            btnSettings.Text = "Settings";
+            btnSettings.Text = "Настройки";
             btnSettings.Click += btnSettings_Click;
             // 
             // lblThreatScore
@@ -136,9 +137,19 @@
             lblThreatScore.Size = new Size(242, 23);
             lblThreatScore.TabIndex = 7;
             // 
+            // btnCPUTest
+            // 
+            btnCPUTest.Location = new Point(326, 530);
+            btnCPUTest.Name = "btnCPUTest";
+            btnCPUTest.Size = new Size(125, 30);
+            btnCPUTest.TabIndex = 8;
+            btnCPUTest.Text = "Тест на процесора";
+            btnCPUTest.Click += btnCPUTest_Click;
+            // 
             // MainForm
             // 
             ClientSize = new Size(940, 570);
+            Controls.Add(btnCPUTest);
             Controls.Add(lblThreatScore);
             Controls.Add(btnSettings);
             Controls.Add(lblCpu);
@@ -149,7 +160,7 @@
             Controls.Add(txtLogs);
             Controls.Add(btnScan);
             Name = "MainForm";
-            Text = "System Monitor";
+            Text = "Системно наблюдение";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             ResumeLayout(false);
@@ -157,5 +168,7 @@
         }
 
         #endregion
+
+        private Button btnCPUTest;
     }
 }

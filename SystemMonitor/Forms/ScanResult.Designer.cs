@@ -30,21 +30,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtScan = new System.Windows.Forms.TextBox();
-
-            this.SuspendLayout();
-
+            txtScan = new TextBox();
+            SuspendLayout();
+            // 
+            // txtScan
+            // 
+            txtScan.Dock = DockStyle.Fill;
+            txtScan.Location = new Point(0, 0);
             txtScan.Multiline = true;
+            txtScan.Name = "txtScan";
             txtScan.ReadOnly = true;
-            txtScan.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            txtScan.Dock = System.Windows.Forms.DockStyle.Fill;
-
-            this.ClientSize = new System.Drawing.Size(400, 500);
-            this.Controls.Add(txtScan);
-            this.Text = "Scan Result";
-
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            txtScan.ScrollBars = ScrollBars.Vertical;
+            txtScan.Size = new Size(400, 500);
+            txtScan.TabIndex = 0;
+            // 
+            // ScanResult
+            // 
+            ClientSize = new Size(400, 500);
+            Controls.Add(txtScan);
+            Name = "ScanResult";
+            Text = "Резултат от сканиране";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

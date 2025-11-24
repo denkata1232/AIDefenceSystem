@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using SystemMonitor.Core;
 using SystemMonitor.Core.Data;
+using SystemMonitor.Core.PCTesters;
 using SystemMonitor.Forms;
 
 namespace SystemMonitor
@@ -16,7 +17,7 @@ namespace SystemMonitor
         private NetworkInterface activeNetwork;
         private AlertManager alertManager = new AlertManager();
 
-        
+
 
         public MainForm()
         {
@@ -53,12 +54,17 @@ namespace SystemMonitor
 
         private void UpdateThreatScoreUI(int score, string status)
         {
-            lblThreatScore.Text = $"Security Score: {score} ({status})";
 
-            if (score < 20) lblThreatScore.BackColor = Color.Green;
-            else if (score < 50) lblThreatScore.BackColor = Color.Yellow;
-            else if (score < 75) lblThreatScore.BackColor = Color.Orange;
-            else lblThreatScore.BackColor = Color.Red;
+            SafeUI(() =>
+            {
+                lblThreatScore.Text = $"Оценка на защитата: {score} ({status})";
+
+                if (score < 20) lblThreatScore.BackColor = Color.Green;
+                else if (score < 50) lblThreatScore.BackColor = Color.Yellow;
+                else if (score < 75) lblThreatScore.BackColor = Color.Orange;
+                else lblThreatScore.BackColor = Color.Red;
+            });
+
         }
 
         private void btnScan_Click(object sender, EventArgs e)
@@ -78,12 +84,12 @@ namespace SystemMonitor
             }
 
             string result =
-                $"Manual Security Scan Completed{Environment.NewLine}" +
-                $"Total Processes: {processes.Length}{Environment.NewLine}" +
-                $"Suspicious Processes: {suspiciousCount}{Environment.NewLine}" +
-                $"Network Monitoring: {(SettingsManager.Load().NetworkMonitoring ? "ON" : "OFF")}{Environment.NewLine}" +
-                $"Screenshot Logging: {(SettingsManager.Load().ScreenshotLogging ? "ON" : "OFF")}{Environment.NewLine}" +
-                $"Overall Status: {(suspiciousCount > 0 ? "Potential Issues" : "System Clean")}";
+                $"Ръчно сканиране завършено{Environment.NewLine}" +
+                $"Брой процеси: {processes.Length}{Environment.NewLine}" +
+                $"Подозрителни процеси: {suspiciousCount}{Environment.NewLine}" +
+                $"Наблюдение на мрежата: {(SettingsManager.Load().NetworkMonitoring ? "Да" : "Не")}{Environment.NewLine}" +
+                $"Регистриране на екранни снимки: {(SettingsManager.Load().ScreenshotLogging ? "Да" : "Не")}{Environment.NewLine}" +
+                $"Пълен статус: {(suspiciousCount > 0 ? "Потенциални проблеми" : "Чиста система")}";
 
             new ScanResult(result).Show();
         }
@@ -91,7 +97,7 @@ namespace SystemMonitor
         private void UpdateCpu()
         {
             float cpu = cpuCounter.NextValue();
-            lblCpu.Text = $"CPU: {cpu:0.0}%";
+            lblCpu.Text = $"CPU (процесор): {cpu:0.0}%";
             alertManager.CheckCpu(cpu);
         }
 
@@ -108,7 +114,7 @@ namespace SystemMonitor
             double percent = (double)used / total * 100.0;
             alertManager.CheckRam((float)percent);
 
-            lblRam.Text = $"RAM: {usedGB:0.00} / {totalGB:0.00} GB ({percent:0}%)";
+            lblRam.Text = $"RAM (Кеш памет): {usedGB:0.00} / {totalGB:0.00} GB ({percent:0}%)";
         }
 
         private void UpdateNetwork()
@@ -128,8 +134,8 @@ namespace SystemMonitor
 
             alertManager.CheckNetwork(sentDiff / 1024.0, recvDiff / 1024.0);
 
-            lblNetUp.Text = $"Upload: {sentDiff / 1024.0:0.0} KB/s";
-            lblNetDown.Text = $"Download: {recvDiff / 1024.0:0.0} KB/s";
+            lblNetUp.Text = $"Upload (качване): {sentDiff / 1024.0:0.0} KB/s";
+            lblNetDown.Text = $"Download (сваляне): {recvDiff / 1024.0:0.0} KB/s";
         }
 
         private void UpdateProcessList()
@@ -178,9 +184,23 @@ namespace SystemMonitor
             new SettingsForm().ShowDialog();
         }
 
+        private void SafeUI(Action uiAction)
+        {
+            if (InvokeRequired)
+                Invoke(uiAction);
+            else
+                uiAction();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             telemetry.Stop();
+        }
+
+        private void btnCPUTest_Click(object sender, EventArgs e)
+        {
+            CPUTester CPUTest= new CPUTester();
+            CPUTest.StartTest();
         }
     }
 }

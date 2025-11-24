@@ -71,7 +71,7 @@ namespace SystemMonitor.Core.Data
 
         private int GetUnknownProcessCount()
         {
-            return 0; // Day 2 adds real logic
+            return 0; // ToDo: real logic
         }
 
         private double GetCpuUsage()

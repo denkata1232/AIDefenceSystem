@@ -20,7 +20,7 @@ namespace SystemMonitor.Core
         {
             if (cpu > CpuThreshold)
             {
-                string msg = $"High CPU usage detected: {cpu:0}%";
+                string msg = $"Високо използване на процесора засечено: {cpu:0}%";
                 TriggerAlert(msg);
             }
         }
@@ -29,7 +29,7 @@ namespace SystemMonitor.Core
         {
             if (percent > RamThreshold)
             {
-                string msg = $"High RAM usage detected: {percent:0}%";
+                string msg = $"Високо използване на Кеш памет засечено: {percent:0}%";
                 TriggerAlert(msg);
             }
         }
@@ -38,7 +38,7 @@ namespace SystemMonitor.Core
         {
             if (upKB > NetworkSpikeKB || downKB > NetworkSpikeKB)
             {
-                string msg = $"Network spike detected (Up {upKB:0} KB/s, Down {downKB:0} KB/s)";
+                string msg = $"Мрежов скок засечен (качване {upKB:0} KB/s, сваляне {downKB:0} KB/s)";
                 TriggerAlert(msg);
             }
         }
@@ -50,7 +50,7 @@ namespace SystemMonitor.Core
                 if (!knownProcesses.Contains(p.ProcessName))
                 {
                     knownProcesses.Add(p.ProcessName);
-                    string msg = $"New process detected: {p.ProcessName}.exe";
+                    string msg = $"Нов процес засечен: {p.ProcessName}.exe";
                     TriggerAlert(msg);
                 }
             }
