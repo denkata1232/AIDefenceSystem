@@ -8,48 +8,63 @@ namespace SystemMonitor.Core.PCTesters
         private PerformanceCounter cpuCounter;
         private Stopwatch cpuBorderTime;
 
+        // Safe stop flag
+        private volatile bool threadStopRequested = false;
+
         public CPUTester()
         {
             threads = new List<Thread>();
             cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             cpuBorderTime = new Stopwatch();
         }
-        public void StartTest(float cpuTreashHold = 95)
+        public void StartTest(float cpuThreshold = 100)
         {
-            cpuTreashHold = Math.Max(0, cpuTreashHold);
-            cpuTreashHold = Math.Min(cpuTreashHold, 95);
+            threadStopRequested = false; // reset stop flag
+
+            cpuThreshold = Math.Clamp(cpuThreshold, 0, 100);
 
             float cpu = cpuCounter.NextValue();
-            while (cpu < cpuTreashHold/* || cpuBorderTime.Elapsed.Seconds < 3*/)
+            cpuBorderTime.Start();
+
+            //while (cpuBorderTime.Elapsed.Seconds < 3)
+            while (cpuBorderTime.Elapsed.Seconds < 3)
             {
-                if (cpu >= cpuTreashHold)
+                if(cpu < cpuThreshold)
                 {
-                    cpuBorderTime.Start();
+                    cpuBorderTime.Restart();
                 }
-                Thread t = new Thread(StressCpu);
-                t.IsBackground = true;
+                Thread t = new Thread(StressCpu)
+                {
+                    IsBackground = true
+                };
                 threads.Add(t);
                 t.Start();
+
+                cpu = cpuCounter.NextValue();
             }
-            foreach (Thread t in threads)
+
+            //threads stop safely
+            threadStopRequested = true;
+
+            // Wait for threads
+            foreach (var t in threads)
             {
-#pragma warning disable SYSLIB0006
-                t.Abort();
-#pragma warning restore SYSLIB0006
+                if (t.IsAlive)
+                    t.Join(200); // 200ms wait max per thread
             }
+
             MessageBox.Show($"Активни процеси: {threads.Count}");
+
             threads.Clear();
             cpuBorderTime.Reset();
         }
+
         private void StressCpu()
         {
-            while (true)
+            while (!threadStopRequested)
             {
-                //double x = Math.Sqrt(new Random().NextDouble());
-                double x = new Random().Next(0, 100) + new Random().Next(0, 100);
+                double x = Math.Sqrt(12345.6789);
             }
         }
-
-
     }
 }
