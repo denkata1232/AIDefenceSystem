@@ -13,7 +13,9 @@ namespace SystemMonitor
         private long lastBytesSent = 0;
         private long lastBytesReceived = 0;
         private TelemetryService telemetry;
+        private AdvancedCpuTester cpuTester;
         private PerformanceCounter cpuCounter;
+        private bool cpuTesterRunning = false;
         private NetworkInterface activeNetwork;
         private AlertManager alertManager = new AlertManager();
 
@@ -33,6 +35,25 @@ namespace SystemMonitor
                 lastBytesSent = stats.BytesSent;
                 lastBytesReceived = stats.BytesReceived;
             }
+
+            cpuTester = new AdvancedCpuTester();
+
+            // Bind UI updates
+            cpuTester.OnCpuUpdated = (cpu) =>
+            {
+                SafeUI(() =>
+                {
+                    lblCpu.Text = $"CPU (процесор): {cpu:0.0}%";
+                });
+            };
+
+            cpuTester.OnStatusChanged = (msg) =>
+            {
+                SafeUI(() =>
+                {
+                    txtLogs.AppendText(msg + Environment.NewLine);
+                });
+            };
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -199,9 +220,18 @@ namespace SystemMonitor
 
         private void btnCPUTest_Click(object sender, EventArgs e)
         {
-            CPUTester CPUTest= new CPUTester();
-            CPUTest.StartTest();
-            //MessageBox.Show("Съществува тестът, но забива цялостно и не може да изведе резултатът от него.");
+            if (cpuTesterRunning == false)
+            {
+                cpuTesterRunning = true;
+                btnCPUTest.Text = "Спри CPU тест";
+                cpuTester.Start(100);  // full stress
+            }
+            else
+            {
+                cpuTesterRunning = false;
+                btnCPUTest.Text = "Тест на процесора";
+                cpuTester.Stop();
+            }
         }
     }
 }

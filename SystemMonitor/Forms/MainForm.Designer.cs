@@ -7,6 +7,9 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private TextBox txtLog;
+        private Label lblCpuLoad;
+        private Button btnCPUTest;
         private System.Windows.Forms.Label lblCpu;
         private System.Windows.Forms.Label lblRam;
         private System.Windows.Forms.Label lblNetUp;
@@ -163,12 +166,28 @@
             Text = "Системно наблюдение";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
+
+            // lblCpuLoad
+            Label lblCpuLoad = new Label();
+            lblCpuLoad.Name = "lblCpuLoad";
+            lblCpuLoad.Location = new Point(150, 10);
+            lblCpuLoad.Size = new Size(150, 15);
+            lblCpuLoad.Text = "CPU Натоварване: 0%";
+            Controls.Add(lblCpuLoad);
+
+            // txtLog
+            TextBox txtLog = new TextBox();
+            txtLog.Name = "txtLog";
+            txtLog.Location = new Point(520, 530);
+            txtLog.Size = new Size(400, 30);
+            txtLog.Multiline = true;
+            txtLog.ScrollBars = ScrollBars.Vertical;
+            Controls.Add(txtLog);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button btnCPUTest;
     }
 }
