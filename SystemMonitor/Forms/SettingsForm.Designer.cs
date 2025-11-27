@@ -99,6 +99,7 @@
             btnSave.Size = new Size(121, 30);
             btnSave.TabIndex = 5;
             btnSave.Text = "Запази настройки";
+            btnSave.Click += BtnSave_Click;
             // 
             // nudSeconds
             // 
@@ -132,6 +133,7 @@
             Controls.Add(btnSave);
             Name = "SettingsForm";
             Text = "Настройки";
+            Load += SettingsForm_Load;
             ((System.ComponentModel.ISupportInitialize)trackVolume).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudSeconds).EndInit();
             ResumeLayout(false);

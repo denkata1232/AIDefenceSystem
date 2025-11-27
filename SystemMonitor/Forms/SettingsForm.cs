@@ -15,7 +15,7 @@ namespace SystemMonitor.Forms
     public partial class SettingsForm : Form
     {
         private AppSettings settings;
-        private Timer screenshotTimer = new Timer();
+        private System.Windows.Forms.Timer screenshotTimer = new System.Windows.Forms.Timer();
 
         public SettingsForm()
         {
@@ -62,12 +62,14 @@ namespace SystemMonitor.Forms
         }
         private void Start_timer()
         {
-            screenshotTimer.Interval = nudSeconds.Value*1000;
+            screenshotTimer.Interval = (int)nudSeconds.Value*1000;
             screenshotTimer.Tick += Take_Screeenshots;
             screenshotTimer.Start();
         }
         private void Take_Screeenshots(object sender, EventArgs e)
         {
+            //https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
+
             string filename = $"screenshot_{DateTime.Now:yyyy.MM.dd_HH.mm.ss}.png";
 
             Bitmap bmp = new Bitmap(this.Width, this.Height);
