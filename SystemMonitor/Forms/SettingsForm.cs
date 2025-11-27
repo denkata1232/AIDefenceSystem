@@ -16,9 +16,11 @@ namespace SystemMonitor.Forms
     {
         private AppSettings settings;
         private System.Windows.Forms.Timer screenshotTimer = new System.Windows.Forms.Timer();
+        public MainForm mainForm;
 
-        public SettingsForm()
+        public SettingsForm(MainForm main)
         {
+            mainForm = main;
             InitializeComponent();
         }
 
@@ -58,23 +60,29 @@ namespace SystemMonitor.Forms
             else
             {
                 screenshotTimer.Stop();
+                lblSeconds.Visible = false;
+                nudSeconds.Visible = false;
             }
         }
         private void Start_timer()
         {
-            screenshotTimer.Interval = (int)nudSeconds.Value*1000;
+            screenshotTimer.Interval = (int)nudSeconds.Value * 1000;
             screenshotTimer.Tick += Take_Screeenshots;
             screenshotTimer.Start();
         }
         private void Take_Screeenshots(object sender, EventArgs e)
         {
-            //https://nishanc.medium.com/c-screenshot-utility-to-capture-a-portion-of-the-screen-489ddceeee49
 
             string filename = $"screenshot_{DateTime.Now:yyyy.MM.dd_HH.mm.ss}.png";
 
-            Bitmap bmp = new Bitmap(this.Width, this.Height);
-            this.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+            Bitmap bmp = new Bitmap(mainForm.Width, mainForm.Height);
+            mainForm.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
             bmp.Save(filename);
+        }
+
+        private void nudSeconds_ValueChanged(object sender, EventArgs e)
+        {
+            Start_timer();
         }
     }
 }

@@ -203,7 +203,7 @@ namespace SystemMonitor
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            new SettingsForm().ShowDialog();
+            new SettingsForm(this).ShowDialog();
         }
 
         private void SafeUI(Action uiAction)

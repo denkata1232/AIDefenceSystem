@@ -109,6 +109,7 @@
             nudSeconds.TabIndex = 6;
             nudSeconds.Value = new decimal(new int[] { 10, 0, 0, 0 });
             nudSeconds.Visible = false;
+            nudSeconds.ValueChanged += nudSeconds_ValueChanged;
             // 
             // lblSeconds
             // 
