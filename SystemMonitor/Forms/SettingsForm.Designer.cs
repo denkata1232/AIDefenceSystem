@@ -40,7 +40,10 @@
             trackVolume = new TrackBar();
             cmbTheme = new ComboBox();
             btnSave = new Button();
+            nudSeconds = new NumericUpDown();
+            lblSeconds = new Label();
             ((System.ComponentModel.ISupportInitialize)trackVolume).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudSeconds).BeginInit();
             SuspendLayout();
             // 
             // chkMonitoring
@@ -57,9 +60,10 @@
             chkScreenshots.AutoSize = true;
             chkScreenshots.Location = new Point(20, 50);
             chkScreenshots.Name = "chkScreenshots";
-            chkScreenshots.Size = new Size(296, 19);
+            chkScreenshots.Size = new Size(201, 19);
             chkScreenshots.TabIndex = 1;
-            chkScreenshots.Text = "Активиране на регистриране на екранни снимки";
+            chkScreenshots.Text = "Активиране на екранни снимки";
+            chkScreenshots.CheckedChanged += chkScreenshots_CheckedChanged;
             // 
             // chkNetwork
             // 
@@ -96,9 +100,30 @@
             btnSave.TabIndex = 5;
             btnSave.Text = "Запази настройки";
             // 
+            // nudSeconds
+            // 
+            nudSeconds.Location = new Point(312, 46);
+            nudSeconds.Name = "nudSeconds";
+            nudSeconds.Size = new Size(75, 23);
+            nudSeconds.TabIndex = 6;
+            nudSeconds.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            nudSeconds.Visible = false;
+            // 
+            // lblSeconds
+            // 
+            lblSeconds.AutoSize = true;
+            lblSeconds.Location = new Point(282, 28);
+            lblSeconds.Name = "lblSeconds";
+            lblSeconds.Size = new Size(114, 15);
+            lblSeconds.TabIndex = 7;
+            lblSeconds.Text = "интервал в секунди";
+            lblSeconds.Visible = false;
+            // 
             // SettingsForm
             // 
-            ClientSize = new Size(323, 280);
+            ClientSize = new Size(408, 280);
+            Controls.Add(lblSeconds);
+            Controls.Add(nudSeconds);
             Controls.Add(chkMonitoring);
             Controls.Add(chkScreenshots);
             Controls.Add(chkNetwork);
@@ -108,10 +133,14 @@
             Name = "SettingsForm";
             Text = "Настройки";
             ((System.ComponentModel.ISupportInitialize)trackVolume).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudSeconds).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
+
+        private NumericUpDown nudSeconds;
+        private Label lblSeconds;
     }
 }
