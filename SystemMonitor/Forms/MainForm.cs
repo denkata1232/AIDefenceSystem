@@ -1,3 +1,4 @@
+using InputSimulatorStandard;
 using Microsoft.VisualBasic.Devices;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
@@ -232,6 +233,11 @@ namespace SystemMonitor
                 btnCPUTest.Text = "Тест на процесора";
                 cpuTester.Stop();
             }
+        }
+
+        public static void ScreenShotAction()
+        {
+            var simulator = new InputSimulator();
         }
     }
 }
