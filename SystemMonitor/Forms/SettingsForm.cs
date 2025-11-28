@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SystemMonitor.Core;
+using SystemMonitor.Core.MonitorFunc;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace SystemMonitor.Forms
@@ -75,9 +76,9 @@ namespace SystemMonitor.Forms
 
             string filename = $"screenshot_{DateTime.Now:yyyy.MM.dd_HH.mm.ss}.png";
 
-            Bitmap bmp = new Bitmap(mainForm.Width, mainForm.Height);
-            mainForm.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
-            bmp.Save(filename);
+            Bitmap bmp = ScreenshotTaker.PrintWindow(mainForm.Handle); // mainForm.Handle -> app to screenshot
+            Directory.CreateDirectory("Screenshots");
+            bmp.Save($"Screenshots\\{filename}");
         }
 
         private void nudSeconds_ValueChanged(object sender, EventArgs e)
