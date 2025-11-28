@@ -13,5 +13,6 @@ namespace SystemMonitor.Core
         public int AlertVolume { get; set; } = 70;
         public bool NetworkMonitoring { get; set; } = true;
         public string Theme { get; set; } = "Dark";
+        public int ScreenshotTimer { get; set; } = 15;
     }
 }

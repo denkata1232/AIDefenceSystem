@@ -34,6 +34,7 @@ namespace SystemMonitor.Forms
             chkNetwork.Checked = settings.NetworkMonitoring;
             trackVolume.Value = settings.AlertVolume;
             cmbTheme.SelectedItem = settings.Theme;
+            nudSeconds.Value = settings.ScreenshotTimer;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -42,6 +43,7 @@ namespace SystemMonitor.Forms
             settings.ScreenshotLogging = chkScreenshots.Checked;
             settings.NetworkMonitoring = chkNetwork.Checked;
             settings.AlertVolume = trackVolume.Value;
+            settings.ScreenshotTimer = (int)nudSeconds.Value;
             settings.Theme = cmbTheme.SelectedItem?.ToString() ?? "Dark";
 
             SettingsManager.Save(settings);
@@ -83,6 +85,7 @@ namespace SystemMonitor.Forms
 
         private void nudSeconds_ValueChanged(object sender, EventArgs e)
         {
+
             Start_timer();
         }
     }
