@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using SystemMonitor.Core;
+﻿using SystemMonitor.Core;
 using SystemMonitor.Core.MonitorFunc;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace SystemMonitor.Forms
 {
     public partial class SettingsForm : Form
     {
         private AppSettings settings;
-        private System.Windows.Forms.Timer screenshotTimer = new System.Windows.Forms.Timer();
         public MainForm mainForm;
 
         public SettingsForm(MainForm main)
@@ -49,6 +38,7 @@ namespace SystemMonitor.Forms
             SettingsManager.Save(settings);
 
             MessageBox.Show("Settings saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
             Close();
         }
 
@@ -62,25 +52,28 @@ namespace SystemMonitor.Forms
             }
             else
             {
-                screenshotTimer.Stop();
+                MainForm.screenshotTimer.Stop();
                 lblSeconds.Visible = false;
                 nudSeconds.Visible = false;
             }
         }
         private void Start_timer()
         {
-            screenshotTimer.Interval = (int)nudSeconds.Value * 1000;
-            screenshotTimer.Tick += Take_Screeenshots;
-            screenshotTimer.Start();
+            MainForm.screenshotTimer.Interval = (int)nudSeconds.Value * 1000;
+            MainForm.screenshotTimer.Tick += Take_Screeenshots;
+            MainForm.screenshotTimer.Start();
         }
         private void Take_Screeenshots(object sender, EventArgs e)
         {
 
-            string filename = $"screenshot_{DateTime.Now:yyyy.MM.dd_HH.mm.ss}.png";
+            if (chkScreenshots.Checked)
+            {
+                string filename = $"screenshot_{DateTime.Now:yyyy.MM.dd_HH.mm.ss}.png";
 
-            Bitmap bmp = ScreenshotTaker.PrintWindow(mainForm.Handle); // mainForm.Handle -> app to screenshot
-            Directory.CreateDirectory("Screenshots");
-            bmp.Save($"Screenshots\\{filename}");
+                Bitmap bmp = ScreenshotTaker.PrintWindow(mainForm.Handle); // mainForm.Handle -> app to screenshot
+                Directory.CreateDirectory("Screenshots");
+                bmp.Save($"Screenshots\\{filename}");
+            }
         }
 
         private void nudSeconds_ValueChanged(object sender, EventArgs e)

@@ -34,6 +34,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             chkMonitoring = new CheckBox();
             chkScreenshots = new CheckBox();
             chkNetwork = new CheckBox();
@@ -49,33 +50,46 @@
             // chkMonitoring
             // 
             chkMonitoring.AutoSize = true;
+            chkMonitoring.BackColor = Color.Transparent;
+            chkMonitoring.Font = new Font("Segoe UI", 10F);
+            chkMonitoring.ForeColor = Color.White;
             chkMonitoring.Location = new Point(20, 20);
             chkMonitoring.Name = "chkMonitoring";
-            chkMonitoring.Size = new Size(191, 19);
+            chkMonitoring.Size = new Size(219, 23);
             chkMonitoring.TabIndex = 0;
             chkMonitoring.Text = "Активиране на наблюдението";
+            chkMonitoring.UseVisualStyleBackColor = false;
             // 
             // chkScreenshots
             // 
             chkScreenshots.AutoSize = true;
+            chkScreenshots.BackColor = Color.Transparent;
+            chkScreenshots.Font = new Font("Segoe UI", 10F);
+            chkScreenshots.ForeColor = Color.White;
             chkScreenshots.Location = new Point(20, 50);
             chkScreenshots.Name = "chkScreenshots";
-            chkScreenshots.Size = new Size(201, 19);
+            chkScreenshots.Size = new Size(230, 23);
             chkScreenshots.TabIndex = 1;
             chkScreenshots.Text = "Активиране на екранни снимки";
+            chkScreenshots.UseVisualStyleBackColor = false;
             chkScreenshots.CheckedChanged += chkScreenshots_CheckedChanged;
             // 
             // chkNetwork
             // 
             chkNetwork.AutoSize = true;
+            chkNetwork.BackColor = Color.Transparent;
+            chkNetwork.Font = new Font("Segoe UI", 10F);
+            chkNetwork.ForeColor = Color.White;
             chkNetwork.Location = new Point(20, 80);
             chkNetwork.Name = "chkNetwork";
-            chkNetwork.Size = new Size(247, 19);
+            chkNetwork.Size = new Size(284, 23);
             chkNetwork.TabIndex = 2;
             chkNetwork.Text = "Активирайте наблюдението на мрежата";
+            chkNetwork.UseVisualStyleBackColor = false;
             // 
             // trackVolume
             // 
+            trackVolume.BackColor = SystemColors.ActiveCaptionText;
             trackVolume.Location = new Point(20, 120);
             trackVolume.Maximum = 100;
             trackVolume.Name = "trackVolume";
@@ -85,7 +99,9 @@
             // 
             // cmbTheme
             // 
+            cmbTheme.BackColor = Color.Black;
             cmbTheme.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTheme.ForeColor = Color.DimGray;
             cmbTheme.Items.AddRange(new object[] { "Dark", "Light" });
             cmbTheme.Location = new Point(20, 170);
             cmbTheme.Name = "cmbTheme";
@@ -94,15 +110,20 @@
             // 
             // btnSave
             // 
+            btnSave.BackgroundImage = Properties.Resources.Background1;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnSave.ForeColor = Color.Snow;
             btnSave.Location = new Point(20, 220);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(121, 30);
+            btnSave.Size = new Size(169, 30);
             btnSave.TabIndex = 5;
             btnSave.Text = "Запази настройки";
             btnSave.Click += BtnSave_Click;
             // 
             // nudSeconds
             // 
+            nudSeconds.BackColor = Color.LightGray;
             nudSeconds.Location = new Point(312, 46);
             nudSeconds.Name = "nudSeconds";
             nudSeconds.Size = new Size(75, 23);
@@ -114,15 +135,20 @@
             // lblSeconds
             // 
             lblSeconds.AutoSize = true;
-            lblSeconds.Location = new Point(282, 28);
+            lblSeconds.BackColor = Color.Transparent;
+            lblSeconds.Font = new Font("Segoe UI", 10F);
+            lblSeconds.ForeColor = Color.White;
+            lblSeconds.Location = new Point(263, 22);
             lblSeconds.Name = "lblSeconds";
-            lblSeconds.Size = new Size(114, 15);
+            lblSeconds.Size = new Size(133, 19);
             lblSeconds.TabIndex = 7;
             lblSeconds.Text = "интервал в секунди";
             lblSeconds.Visible = false;
             // 
             // SettingsForm
             // 
+            BackColor = SystemColors.ControlDark;
+            BackgroundImage = Properties.Resources.Background1;
             ClientSize = new Size(408, 280);
             Controls.Add(lblSeconds);
             Controls.Add(nudSeconds);
@@ -132,6 +158,9 @@
             Controls.Add(trackVolume);
             Controls.Add(cmbTheme);
             Controls.Add(btnSave);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "SettingsForm";
             Text = "Настройки";
             Load += SettingsForm_Load;

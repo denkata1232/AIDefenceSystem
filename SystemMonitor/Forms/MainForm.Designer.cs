@@ -42,6 +42,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             refreshTimer = new System.Windows.Forms.Timer(components);
             lblCpu = new Label();
             lblRam = new Label();
@@ -53,6 +54,8 @@
             btnSettings = new Button();
             lblThreatScore = new Label();
             btnCPUTest = new Button();
+            lblCpuLoad = new Label();
+            txtLog = new TextBox();
             SuspendLayout();
             // 
             // refreshTimer
@@ -63,6 +66,8 @@
             // lblCpu
             // 
             lblCpu.AutoSize = true;
+            lblCpu.BackColor = Color.Transparent;
+            lblCpu.ForeColor = Color.Snow;
             lblCpu.Location = new Point(10, 10);
             lblCpu.Name = "lblCpu";
             lblCpu.Size = new Size(101, 15);
@@ -72,6 +77,8 @@
             // lblRam
             // 
             lblRam.AutoSize = true;
+            lblRam.BackColor = Color.Transparent;
+            lblRam.ForeColor = Color.Snow;
             lblRam.Location = new Point(10, 35);
             lblRam.Name = "lblRam";
             lblRam.Size = new Size(110, 15);
@@ -81,6 +88,8 @@
             // lblNetUp
             // 
             lblNetUp.AutoSize = true;
+            lblNetUp.BackColor = Color.Transparent;
+            lblNetUp.ForeColor = Color.Snow;
             lblNetUp.Location = new Point(10, 60);
             lblNetUp.Name = "lblNetUp";
             lblNetUp.Size = new Size(106, 15);
@@ -90,6 +99,8 @@
             // lblNetDown
             // 
             lblNetDown.AutoSize = true;
+            lblNetDown.BackColor = Color.Transparent;
+            lblNetDown.ForeColor = Color.Snow;
             lblNetDown.Location = new Point(10, 85);
             lblNetDown.Name = "lblNetDown";
             lblNetDown.Size = new Size(122, 15);
@@ -98,16 +109,22 @@
             // 
             // processList
             // 
+            processList.BackgroundImage = Properties.Resources.Background1;
+            processList.BackgroundImageTiled = true;
+            processList.BorderStyle = BorderStyle.None;
+            processList.ForeColor = Color.Snow;
             processList.Location = new Point(10, 138);
             processList.Name = "processList";
-            processList.Size = new Size(500, 382);
+            processList.Size = new Size(551, 382);
             processList.TabIndex = 4;
             processList.UseCompatibleStateImageBehavior = false;
             processList.View = View.Details;
             // 
             // txtLogs
             // 
-            txtLogs.Location = new Point(520, 10);
+            txtLogs.BackColor = Color.FromArgb(0, 27, 56);
+            txtLogs.ForeColor = Color.White;
+            txtLogs.Location = new Point(567, 10);
             txtLogs.Multiline = true;
             txtLogs.Name = "txtLogs";
             txtLogs.ReadOnly = true;
@@ -117,6 +134,10 @@
             // 
             // btnScan
             // 
+            btnScan.BackgroundImage = Properties.Resources.Background1;
+            btnScan.FlatStyle = FlatStyle.Flat;
+            btnScan.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnScan.ForeColor = Color.Snow;
             btnScan.Location = new Point(10, 530);
             btnScan.Name = "btnScan";
             btnScan.Size = new Size(200, 30);
@@ -126,15 +147,20 @@
             // 
             // btnSettings
             // 
+            btnSettings.BackgroundImage = Properties.Resources.Background1;
+            btnSettings.FlatStyle = FlatStyle.Flat;
+            btnSettings.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnSettings.ForeColor = Color.Snow;
             btnSettings.Location = new Point(220, 530);
             btnSettings.Name = "btnSettings";
-            btnSettings.Size = new Size(100, 30);
+            btnSettings.Size = new Size(131, 30);
             btnSettings.TabIndex = 0;
             btnSettings.Text = "Настройки";
             btnSettings.Click += btnSettings_Click;
             // 
             // lblThreatScore
             // 
+            lblThreatScore.BackColor = Color.Transparent;
             lblThreatScore.Location = new Point(10, 112);
             lblThreatScore.Name = "lblThreatScore";
             lblThreatScore.Size = new Size(242, 23);
@@ -142,16 +168,41 @@
             // 
             // btnCPUTest
             // 
-            btnCPUTest.Location = new Point(326, 530);
+            btnCPUTest.BackgroundImage = Properties.Resources.Background1;
+            btnCPUTest.FlatStyle = FlatStyle.Flat;
+            btnCPUTest.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            btnCPUTest.ForeColor = Color.Snow;
+            btnCPUTest.Location = new Point(357, 530);
             btnCPUTest.Name = "btnCPUTest";
-            btnCPUTest.Size = new Size(125, 30);
+            btnCPUTest.Size = new Size(204, 30);
             btnCPUTest.TabIndex = 8;
             btnCPUTest.Text = "Тест на процесора";
             btnCPUTest.Click += btnCPUTest_Click;
             // 
+            // lblCpuLoad
+            // 
+            lblCpuLoad.BackColor = Color.Transparent;
+            lblCpuLoad.ForeColor = Color.Snow;
+            lblCpuLoad.Location = new Point(150, 10);
+            lblCpuLoad.Name = "lblCpuLoad";
+            lblCpuLoad.Size = new Size(150, 15);
+            lblCpuLoad.TabIndex = 9;
+            lblCpuLoad.Text = "CPU Натоварване: 0%";
+            // 
+            // txtLog
+            // 
+            txtLog.Location = new Point(567, 530);
+            txtLog.Multiline = true;
+            txtLog.Name = "txtLog";
+            txtLog.ScrollBars = ScrollBars.Vertical;
+            txtLog.Size = new Size(400, 30);
+            txtLog.TabIndex = 10;
+            // 
             // MainForm
             // 
-            ClientSize = new Size(940, 570);
+            BackgroundImage = Properties.Resources.Background;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(979, 570);
             Controls.Add(btnCPUTest);
             Controls.Add(lblThreatScore);
             Controls.Add(btnSettings);
@@ -162,27 +213,16 @@
             Controls.Add(processList);
             Controls.Add(txtLogs);
             Controls.Add(btnScan);
+            Controls.Add(lblCpuLoad);
+            Controls.Add(txtLog);
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "MainForm";
             Text = "Системно наблюдение";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
-
-            // lblCpuLoad
-            Label lblCpuLoad = new Label();
-            lblCpuLoad.Name = "lblCpuLoad";
-            lblCpuLoad.Location = new Point(150, 10);
-            lblCpuLoad.Size = new Size(150, 15);
-            lblCpuLoad.Text = "CPU Натоварване: 0%";
-            Controls.Add(lblCpuLoad);
-
-            // txtLog
-            TextBox txtLog = new TextBox();
-            txtLog.Name = "txtLog";
-            txtLog.Location = new Point(520, 530);
-            txtLog.Size = new Size(400, 30);
-            txtLog.Multiline = true;
-            txtLog.ScrollBars = ScrollBars.Vertical;
-            Controls.Add(txtLog);
             ResumeLayout(false);
             PerformLayout();
         }

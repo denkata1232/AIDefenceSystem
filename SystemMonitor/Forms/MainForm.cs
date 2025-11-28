@@ -11,6 +11,7 @@ namespace SystemMonitor
 {
     public partial class MainForm : Form
     {
+        public static System.Windows.Forms.Timer screenshotTimer = new System.Windows.Forms.Timer();
         private long lastBytesSent = 0;
         private long lastBytesReceived = 0;
         private TelemetryService telemetry;
@@ -25,6 +26,7 @@ namespace SystemMonitor
         public MainForm()
         {
             InitializeComponent();
+            //LoadBackground();
 
             cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             activeNetwork = NetworkInterface.GetAllNetworkInterfaces()
@@ -55,6 +57,17 @@ namespace SystemMonitor
                     txtLogs.AppendText(msg + Environment.NewLine);
                 });
             };
+
+        }
+
+        private void LoadBackground()
+        {
+            PictureBox backgroundGif = new PictureBox();
+            backgroundGif.Dock = DockStyle.Fill;
+            backgroundGif.SizeMode = PictureBoxSizeMode.StretchImage;
+            backgroundGif.Image = Image.FromFile("BackgroundMainform.gif");
+            this.Controls.Add(backgroundGif);
+            backgroundGif.SendToBack();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -185,7 +198,7 @@ namespace SystemMonitor
                 }
                 catch
                 {
-                    // some processes cannot be accessed
+                    
                 }
             }
             alertManager.CheckNewProcesses(Process.GetProcesses());
